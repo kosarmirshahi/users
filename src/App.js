@@ -1,7 +1,7 @@
-import Table from "./components/Members/Members";
+import Members from "./components/Members/Members";
 
 function App() {
-  return <Table />;
+  return <Members />;
 }
 
 export default App;

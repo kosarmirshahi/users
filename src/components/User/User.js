@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import Loader from "../Loader/Loader";
 
 function User() {
   const [data, setData] = useState([]);
+  const [status, setStatus] = useState("loading");
 
   useEffect(() => {
     async function fetchUserData() {
       const response = await fetch("https://reqres.in/api/users?page=2");
       const data = await response.json();
+      setStatus("ready");
       setData(data.data);
     }
     fetchUserData();
   }, []);
-
-  //   console.log(data);
+  console.log(status);
+  if (status === "loading") return <Loader />;
   return (
     <tbody>
       {data.map((user) => (
