@@ -1,10 +1,10 @@
 import InfoModal from "./components/InfoModal/InfoModal";
-import Members from "./components/Members/Members";
+import User from "./components/User/User";
 
 function App() {
   return (
     <>
-      <Members />
+      <User />
       <InfoModal />
     </>
   );

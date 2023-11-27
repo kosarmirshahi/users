@@ -1,22 +1,28 @@
 import { useState, useEffect } from "react";
 import InfoModal from "../InfoModal/InfoModal";
 import Loader from "../Loader/Loader";
+import Pagination from "../Pagination/Pagination";
 
 function User() {
   const [data, setData] = useState([]);
   const [status, setStatus] = useState("loading");
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     async function fetchUserData() {
-      const response = await fetch("https://reqres.in/api/users?page=1");
+      const response = await fetch(
+        `https://reqres.in/api/users?page=${currentPage}`
+      );
       const data = await response.json();
       setStatus("ready");
       setData(data.data);
+      setTotalPages(data.total_pages);
     }
     fetchUserData();
-  }, []);
+  }, [currentPage]);
   function openModal(userId) {
     setIsModalOpen(true);
     setSelectedUserId(userId);
@@ -30,30 +36,49 @@ function User() {
   function closeModal() {
     setIsModalOpen(false);
   }
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   if (status === "loading") return <Loader />;
   return (
-    <tbody>
-      {data.map((user) => (
-        <tr key={user.id} onClick={() => openModal(user.id)}>
-          <td class="border border-gray-300 px-4 py-2">
-            <img
-              className="w-16 h-16 rounded-full"
-              src={user.avatar}
-              alt="pic"
-            />
-          </td>
-          <td class="border border-gray-300 px-4 py-2">
-            {user.first_name} {user.last_name}
-          </td>
-          <td class="border border-gray-300 px-4 py-2">{user.email}</td>
-        </tr>
-      ))}
-      <InfoModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        selectedPerson={selectedPerson}
+    <div class="container mx-auto py-6 w-9/12 mt-7">
+      <table class="min-w-full border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            <th class="border border-gray-300 px-4 py-2">Image</th>
+            <th class="border border-gray-300 px-4 py-2">Full name</th>
+            <th class="border border-gray-300 px-4 py-2">Email address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((user) => (
+            <tr key={user.id} onClick={() => openModal(user.id)}>
+              <td class="border border-gray-300 px-4 py-2">
+                <img
+                  className="w-16 h-16 rounded-full"
+                  src={user.avatar}
+                  alt="pic"
+                />
+              </td>
+              <td class="border border-gray-300 px-4 py-2">
+                {user.first_name} {user.last_name}
+              </td>
+              <td class="border border-gray-300 px-4 py-2">{user.email}</td>
+            </tr>
+          ))}
+          <InfoModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            selectedPerson={selectedPerson}
+          />
+        </tbody>
+      </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
       />
-    </tbody>
+    </div>
   );
 }
 
