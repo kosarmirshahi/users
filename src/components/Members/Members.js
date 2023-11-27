@@ -1,3 +1,4 @@
+import Pagination from "../Pagination/Pagination";
 import User from "../User/User";
 
 function Members() {
@@ -13,6 +14,7 @@ function Members() {
         </thead>
         <User />
       </table>
+      <Pagination />
     </div>
   );
 }
