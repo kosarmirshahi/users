@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function InfoModal({ isOpen, onClose, selectedPerson }) {
-  const [modalOpen, setModalOpen] = useState(isOpen);
+function InfoModal({ isOpen, selectedUserId }) {
+  const [userInformation, setUserInformation] = useState(null);
   function closeModal() {
-    setModalOpen(false);
-    // onClose();
+    isOpen = !isOpen;
   }
-  if (modalOpen) {
-    // console.log(selectedPerson);
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const response = await fetch(
+        `https://reqres.in/api/users/${selectedUserId}`
+      );
+      const info = await response.json();
+      setUserInformation(info.data);
+    }
+    fetchUserData();
+  }, [selectedUserId]);
+
+  if (isOpen) {
     return (
       <>
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none">
@@ -16,17 +26,17 @@ function InfoModal({ isOpen, onClose, selectedPerson }) {
             <div className="bg-white p-4 flex">
               <img
                 className="rounded-xl w-24 h-24 mr-5"
-                src={selectedPerson.avatar}
+                src={userInformation.avatar}
               />
               <div>
                 <span className="text-indigo-900 flex mb-2.5 mt-2.5">
                   Name:
                   <p className="text-black">
-                    {selectedPerson.first_name} {selectedPerson.last_name}
+                    {userInformation.first_name} {userInformation.last_name}
                   </p>
                 </span>
                 <span className="text-indigo-900	 flex">
-                  Email: <p className="text-black">{selectedPerson.email}</p>
+                  Email: <p className="text-black">{userInformation.email}</p>
                 </span>
               </div>
             </div>

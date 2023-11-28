@@ -7,7 +7,7 @@ function User() {
   const [data, setData] = useState([]);
   const [status, setStatus] = useState("loading");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState(2);
+  const [selectedUserId, setSelectedUserId] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -27,50 +27,38 @@ function User() {
     setIsModalOpen(true);
     setSelectedUserId(userId);
   }
-  function getSelectedPerson() {
-    return data.find((person) => person.id === selectedUserId);
-  }
-
-  const selectedPerson = getSelectedPerson();
-
-  function closeModal() {
-    setIsModalOpen(false);
-  }
+  // console.log(isModalOpen);
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   if (status === "loading") return <Loader />;
   return (
-    <div class="container mx-auto py-6 w-9/12 mt-7">
+    <div className="container mx-auto py-6 w-9/12 mt-7">
       <table class="min-w-full border-collapse border border-gray-300">
         <thead>
           <tr>
-            <th class="border border-gray-300 px-4 py-2">Image</th>
-            <th class="border border-gray-300 px-4 py-2">Full name</th>
-            <th class="border border-gray-300 px-4 py-2">Email address</th>
+            <th className="border border-gray-300 px-4 py-2">Image</th>
+            <th className="border border-gray-300 px-4 py-2">Full name</th>
+            <th className="border border-gray-300 px-4 py-2">Email address</th>
           </tr>
         </thead>
         <tbody>
           {data.map((user) => (
             <tr key={user.id} onClick={() => openModal(user.id)}>
-              <td class="border border-gray-300 px-4 py-2">
+              <td className="border border-gray-300 px-4 py-2">
                 <img
                   className="w-16 h-16 rounded-full"
                   src={user.avatar}
                   alt="pic"
                 />
               </td>
-              <td class="border border-gray-300 px-4 py-2">
+              <td className="border border-gray-300 px-4 py-2">
                 {user.first_name} {user.last_name}
               </td>
-              <td class="border border-gray-300 px-4 py-2">{user.email}</td>
+              <td className="border border-gray-300 px-4 py-2">{user.email}</td>
             </tr>
           ))}
-          <InfoModal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            selectedPerson={selectedPerson}
-          />
+          <InfoModal isOpen={isModalOpen} selectedUserId={selectedUserId} />
         </tbody>
       </table>
       <Pagination
