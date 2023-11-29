@@ -58,7 +58,11 @@ function User() {
               <td className="border border-gray-300 px-4 py-2">{user.email}</td>
             </tr>
           ))}
-          <InfoModal isOpen={isModalOpen} selectedUserId={selectedUserId} />
+          <InfoModal
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+            selectedUserId={selectedUserId}
+          />
         </tbody>
       </table>
       <Pagination
