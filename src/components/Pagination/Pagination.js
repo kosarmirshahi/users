@@ -20,7 +20,6 @@ const Pagination = ({
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     else return;
   }
-  console.log(currentPage);
   return (
     <nav className="flex justify-center my-4">
       <ul className="flex">

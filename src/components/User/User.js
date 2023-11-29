@@ -7,7 +7,7 @@ function User() {
   const [data, setData] = useState([]);
   const [status, setStatus] = useState("loading");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState(1);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
