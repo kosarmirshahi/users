@@ -27,35 +27,50 @@ function User() {
     setIsModalOpen(true);
     setSelectedUserId(userId);
   }
-  // console.log(isModalOpen);
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   if (status === "loading") return <Loader />;
   return (
-    <div className="container mx-auto py-6 w-9/12 mt-7">
-      <table class="min-w-full border-collapse border border-gray-300">
+    <div className="container mx-auto py-6 w-11/12 mt-7">
+      <table class="w-10/12 m-auto border-collapse border border-gray-300">
         <thead>
           <tr>
             <th className="border border-gray-300 px-4 py-2">Image</th>
             <th className="border border-gray-300 px-4 py-2">Full name</th>
             <th className="border border-gray-300 px-4 py-2">Email address</th>
+            <th className="border border-gray-300 px-4 py-2">Title</th>
+            <th className="border border-gray-300 px-4 py-2">Amount</th>
+            <th className="border border-gray-300 px-4 py-2">Status</th>
           </tr>
         </thead>
         <tbody>
           {data.map((user) => (
-            <tr key={user.id} onClick={() => openModal(user.id)}>
-              <td className="border border-gray-300 px-4 py-2">
+            <tr
+              key={user.id}
+              onClick={() => openModal(user.id)}
+              className="text-center h-20 text-slate-600"
+            >
+              <td className="border border-gray-300 px-4 py-2 w-13">
                 <img
-                  className="w-16 h-16 rounded-full"
+                  className="w-16 h-16 rounded-full m-auto"
                   src={user.avatar}
                   alt="pic"
                 />
               </td>
-              <td className="border border-gray-300 px-4 py-2">
+              <td className="border border-gray-300 px-4 py-2 w-20">
                 {user.first_name} {user.last_name}
               </td>
-              <td className="border border-gray-300 px-4 py-2">{user.email}</td>
+              <td className="border border-gray-300 px-4 py-2 w-30 ">
+                {user.email}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">Ceo</td>
+              <td className="border border-gray-300 px-4 py-2">20$</td>
+              <td className="border border-gray-300 px-4 py-2">
+                <button className="w-16 h-10 bg-green-500 rounded-xl text-white">
+                  online
+                </button>
+              </td>
             </tr>
           ))}
           <InfoModal
@@ -69,6 +84,7 @@ function User() {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   );
