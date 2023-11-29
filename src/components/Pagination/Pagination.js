@@ -37,7 +37,7 @@ const Pagination = ({
                 currentPage === number
                   ? "bg-blue-500 text-white"
                   : "bg-white text-blue-500"
-              } font-semibold rounded-full w-8 h-8 mx-1`}
+              } font-semibold rounded-full w-8 h-8 mx-1 hover:bg-sky-700 duration-700`}
             >
               {number}
             </button>

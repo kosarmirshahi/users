@@ -33,7 +33,7 @@ function User() {
   if (status === "loading") return <Loader />;
   return (
     <div className="container mx-auto py-6 w-11/12 mt-7">
-      <table class="w-10/12 m-auto border-collapse border border-gray-300">
+      <table class="w-10/12 m-auto border-collapse border border-gray-300 shadow-lg mt-5">
         <thead>
           <tr>
             <th className="border border-gray-300 px-4 py-2">Image</th>

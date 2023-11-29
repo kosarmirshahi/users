@@ -17,7 +17,7 @@ function InfoModal({ isOpen, selectedUserId, setIsOpen }) {
       setUserInformation(info.data);
     }
     fetchUserData();
-  }, [selectedUserId]);
+  }, [selectedUserId, userInformation]);
 
   if (isOpen) {
     return (
